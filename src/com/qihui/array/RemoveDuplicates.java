@@ -1,4 +1,4 @@
-package com.qihui;
+package com.qihui.array;
 
 /**
  * @author chenqihui
