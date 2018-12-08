@@ -22,6 +22,7 @@ public class MaxSubArray {
             if (thisSum > 0) {
                 thisSum += nums[i];
             } else {
+                //如果前面的和小0，那么重新开始求和
                 thisSum = nums[i];
             }
             if (thisSum > maxSum) {
