@@ -1,6 +1,4 @@
-package com.qihui.pattern;
-
-import org.junit.Test;
+package com.qihui.design;
 
 import java.util.*;
 
@@ -53,10 +51,6 @@ public class ShuffleArray {
             }
         }
         return shuffleNums;
-    }
-
-    public static void main(String[] args) {
-        ShuffleArray shuffleArray = new ShuffleArray(new int[]{0, 1, 2, 3, 4});
     }
 
 }
