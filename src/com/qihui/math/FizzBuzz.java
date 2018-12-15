@@ -45,7 +45,7 @@ public class FizzBuzz {
             int index = i + 1;
             if (index% 3 == 0 && index % 5 == 0) {
                 fizzBuzz.add(i, "FizzBuzz");
-            } else if (index% 3 == 0) {
+            } else if (index % 3 == 0) {
                 fizzBuzz.add(i, "Fizz");
             } else if (index % 5 == 0) {
                 fizzBuzz.add(i, "Buzz");
