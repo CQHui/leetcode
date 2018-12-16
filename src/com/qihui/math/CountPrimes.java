@@ -1,6 +1,5 @@
 package com.qihui.math;
 
-import java.util.Arrays;
 
 /**
  * @author chenqihui
