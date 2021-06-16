@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 1 <= n <= 231 - 1
  */
 public class HappyNumber {
-    private static Map<Integer, Boolean> cache = new HashMap<>(64);
+    private static Map<Integer, Boolean> cache = new HashMap<>(128);
     static {
         cache.put(0, false);
         cache.put(1, true);
