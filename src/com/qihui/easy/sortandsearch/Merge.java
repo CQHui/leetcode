@@ -1,4 +1,4 @@
-package com.qihui.easy.sortAndSearch;
+package com.qihui.easy.sortandsearch;
 
 import java.util.Arrays;
 
