@@ -52,40 +52,41 @@ public class MergeKLists {
         if (lists.length == 0) {
             return null;
         }
-
-        Map<Integer, ListNode> map = new TreeMap<>((o1, o2) -> {
-            if (o1.equals(o2)) {
-                return 1;
-            } else {
-                return o1 - o2;
-            }
-        });
-
-        ListNode node;
-        for (int i = 0; i < lists.length; i++) {
-            node = lists[i];
-            while (node != null) {
-                map.put(node.val, node);
-                node = node.next;
-            }
+        ListNode listNode = lists[0];
+        for (int i = 1; i < lists.length; i++) {
+            listNode = combine(listNode, lists[i]);
         }
-
-        Iterator<ListNode> iterator = map.values().iterator();
-        if (!iterator.hasNext()) {
-            return null;
-        }
-        ListNode ans = iterator.next();
-        node = ans;
-        while(iterator.hasNext()) {
-            ListNode next = iterator.next();
-            node.next = next;
-            node = next;
-        }
-        return ans;
+        return listNode;
     }
 
-
-
+    public ListNode combine(ListNode head1, ListNode head2) {
+        if (head1 == null) {
+            return head2;
+        }
+        if (head2 == null) {
+            return head1;
+        }
+        if (head1.val > head2.val) {
+            return combine(head2, head1);
+        }
+        ListNode tmp;
+        ListNode pre = head1;
+        ListNode cur = head2;
+        while (pre.next != null && cur != null) {
+            if (pre.next.val <= cur.val) {
+                pre = pre.next;
+                continue;
+            }
+            tmp = pre.next;
+            pre.next = cur;
+            cur = cur.next;
+            pre.next.next = tmp;
+        }
+        if (cur != null) {
+            pre.next = cur;
+        }
+        return head1;
+    }
 
     public class ListNode {
           int val;
