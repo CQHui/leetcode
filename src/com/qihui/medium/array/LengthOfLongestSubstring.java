@@ -2,6 +2,8 @@ package com.qihui.medium.array;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+
 /**
  * @author chenqihui
  * @date 2019/2/25
@@ -51,8 +53,25 @@ public class LengthOfLongestSubstring {
         return max;
     }
 
+    public int lengthOfLongestSubstringWithSet(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int ans = 0;
+        char[] chars = s.toCharArray();
+        int j = 0;
+        for (int i = 0; i < chars.length; i++) {
+            for (; j < chars.length; j++) {
+                if (!set.add(chars[j])) {
+                    break;
+                }
+            }
+            ans = Math.max(ans, set.size());
+            set.remove(chars[i]);
+        }
+        return ans;
+    }
+
     @Test
     public void test() {
-        System.out.println(lengthOfLongestSubstring("au"));
+        System.out.println(lengthOfLongestSubstringWithSet("pwwkew"));
     }
 }
