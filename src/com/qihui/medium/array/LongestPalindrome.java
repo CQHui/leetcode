@@ -70,4 +70,38 @@ public class LongestPalindrome {
         builder.append("*");
         return builder.toString();
     }
+
+    public String longestPalindromeV2(String s) {
+        char[] chars = s.toCharArray();
+        int length = chars.length;
+        boolean[][] dp = new boolean[chars.length][chars.length];
+
+        for (int i = 0; i < chars.length; i++) {
+            dp[i][i] = true;
+        }
+
+        int left = 0;
+        int right = 0;
+        int longest = 1;
+
+        for (int j = 1; j < length; j++) {
+            for (int i = 0; i < j; i++) {
+                if (chars[i] != chars[j]) {
+                    continue;
+                }
+                dp[i][j] = true;
+                if (j - i > 1) {
+                    dp[i][j] = dp[i + 1][j - 1];
+                }
+                if (dp[i][j]) {
+                    if (j - i + 1 > longest) {
+                        left = i;
+                        right = j;
+                        longest = j - i + 1;
+                    }
+                }
+            }
+        }
+        return s.substring(left, right + 1);
+    }
 }
