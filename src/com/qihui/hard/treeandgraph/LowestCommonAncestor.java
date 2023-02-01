@@ -2,6 +2,9 @@ package com.qihui.hard.treeandgraph;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Stack;
+
 /**
  * Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
  *
@@ -56,6 +59,54 @@ public class LowestCommonAncestor {
         return this.ans;
     }
 
+    private Stack<TreeNode> stackP = new Stack<>();
+    private Stack<TreeNode> stackQ = new Stack<>();
+    boolean stackPCompleted = false;
+    boolean stackQCompleted = false;
+
+    public TreeNode lowestCommonAncestorWithStack(TreeNode root, TreeNode p, TreeNode q) {
+        dfsWithStack(root, p, q);
+        HashSet<TreeNode> set = new HashSet<>(stackP);
+        while (stackQ != null) {
+            TreeNode pop = stackQ.pop();
+            if (!set.add(pop)) {
+                return pop;
+            }
+        }
+        return null;
+    }
+
+    private void dfsWithStack(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || (stackPCompleted && stackQCompleted)) {
+            return;
+        }
+        if (!stackPCompleted) {
+            stackP.push(root);
+        }
+        if (!stackQCompleted) {
+            stackQ.push(root);
+        }
+        if (root.equals(p)) {
+            stackPCompleted = true;
+        }
+        if (root.equals(q)) {
+            stackQCompleted = true;
+        }
+        if (root.left != null) {
+            dfsWithStack(root.left, p, q);
+        }
+        if (root.right != null) {
+            dfsWithStack(root.right, p, q);
+        }
+        if (!stackPCompleted) {
+            stackP.pop();
+        }
+        if (!stackQCompleted) {
+            stackQ.pop();
+        }
+    }
+
+
     public class TreeNode {
         int val;
         TreeNode left;
@@ -72,24 +123,24 @@ public class LowestCommonAncestor {
         TreeNode node2 =  new TreeNode(5);
         TreeNode node3 =  new TreeNode(1);
         TreeNode node4 =  new TreeNode(6);
-        TreeNode node5 =  new TreeNode(0);
-        TreeNode node6 =  new TreeNode(8);
-        TreeNode node7 =  new TreeNode(7);
-        TreeNode node8 =  new TreeNode(4);
-        TreeNode node9 =  new TreeNode(2);
+        TreeNode node5 =  new TreeNode(2);
+        TreeNode node6 =  new TreeNode(0);
+        TreeNode node7 =  new TreeNode(8);
+        TreeNode node8 =  new TreeNode(7);
+        TreeNode node9 =  new TreeNode(4);
 
         node1.left = node2;
         node1.right = node3;
 
         node2.left = node4;
-        node2.right = node9;
+        node2.right = node5;
 
-        node9.left = node7;
-        node9.right = node8;
+        node5.left = node8;
+        node5.right = node9;
 
-        node3.left = node5;
-        node3.right = node6;
-        System.out.println(lowestCommonAncestor(node1, node2, node8).val);
+        node3.left = node6;
+        node3.right = node7;
+        System.out.println(lowestCommonAncestorWithStack(node1, node2, node9).val);
 
     }
 }
