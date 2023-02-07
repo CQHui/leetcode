@@ -1,6 +1,7 @@
 package com.qihui.medium.linklist;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * @author chenqihui
@@ -107,5 +108,25 @@ public class IntersectionNode {
             }
             return nodeA;
         }
+    }
+
+    HashSet<ListNode> set = new HashSet<>();
+    public ListNode getIntersectionNodeWithSet(ListNode headA, ListNode headB) {
+        if (headA == null && headB == null) {
+            return null;
+        }
+        if (headA != null) {
+            if (!set.add(headA)) {
+                return headA;
+            }
+        }
+
+        if (headB != null) {
+            if (!set.add(headB)) {
+                return headB;
+            }
+        }
+
+        return getIntersectionNode(headA == null ? null : headA.next, headB == null ? null : headB.next);
     }
 }
