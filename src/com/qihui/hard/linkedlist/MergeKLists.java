@@ -59,6 +59,32 @@ public class MergeKLists {
         return listNode;
     }
 
+    public ListNode mergeKListsWithCombiningHeadAndTail(ListNode[] lists) {
+        if (lists.length == 0) {
+            return null;
+        }
+        List<ListNode> listNodes = Arrays.asList(lists);
+        LinkedList<ListNode> combinedList = new LinkedList<>(listNodes);
+        return combineList(combinedList);
+    }
+
+    public ListNode combineList(LinkedList<ListNode> combinedList) {
+        if (combinedList.size() == 1) {
+            return combinedList.get(0);
+        }
+        if (combinedList.size() % 2 == 1) {
+            combinedList.add(null);
+        }
+        LinkedList<ListNode> newCombinedList = new LinkedList<>();
+
+        int length = combinedList.size() / 2;
+        for (int i = 0; i < length; i++) {
+            ListNode listNode = combine(combinedList.pollFirst(), combinedList.pollLast());
+            newCombinedList.add(listNode);
+        }
+        return combineList(newCombinedList);
+    }
+
     public ListNode combine(ListNode head1, ListNode head2) {
         if (head1 == null) {
             return head2;
@@ -116,7 +142,7 @@ public class MergeKLists {
         node20.next = node21;
 
         ListNode[] nodes = new ListNode[]{node00, node10, node20};
-        ListNode listNode = mergeKLists(nodes);
+        ListNode listNode = mergeKListsWithCombiningHeadAndTail(nodes);
         while (listNode != null) {
             System.out.print(listNode.val);
             System.out.print(",");
