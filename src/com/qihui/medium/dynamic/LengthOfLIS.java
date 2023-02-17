@@ -60,9 +60,28 @@ public class LengthOfLIS {
         return max;
     }
 
+    public int lengthOfLISV1(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int maxDp = 1;
+        for (int i = 1; i < nums.length; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxDp = Math.max(maxDp, dp[i]);
+        }
+        return maxDp;
+    }
+
     @Test
     public void test() {
-        int[] nums = new int[]{0,1,0,3,2,3};
-        System.out.println(lengthOfLIS(nums));
+        int[] nums = new int[]{4, 10, 4, 3, 8, 9};
+        System.out.println(lengthOfLISV1(nums));
     }
 }
